@@ -30,6 +30,7 @@ public class FileUpload {
 
         // 텍스트 데이터 및 파일 정보 저장
         Map<String, String> formData = new HashMap<>();
+        formData.put("id", multi.getParameter("id"));
         formData.put("title", multi.getParameter("title"));
         formData.put("writer", multi.getParameter("writer"));
         formData.put("content", multi.getParameter("content"));
