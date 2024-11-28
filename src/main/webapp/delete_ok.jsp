@@ -1,5 +1,5 @@
-<%@ page import="org.example.hw4.dao.BoardDAO" %>
-<%@ page import="org.example.hw4.bean.BoardVO" %>
+<%@ page import="org.example.WSD2_3.dao.BoardDAO" %>
+<%@ page import="org.example.WSD2_3.bean.BoardVO" %>
 <%
     int id = Integer.parseInt(request.getParameter("id"));
 

@@ -1,7 +1,7 @@
 <%@ include file="inc/top.jsp" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.hw4.bean.BoardVO" %>
-<%@ page import="org.example.hw4.dao.BoardDAO" %>
+<%@ page import="org.example.WSD2_3.bean.BoardVO" %>
+<%@ page import="org.example.WSD2_3.dao.BoardDAO" %>
 <%
     BoardDAO dao = new BoardDAO();
     List<BoardVO> boards = dao.getBoardList();

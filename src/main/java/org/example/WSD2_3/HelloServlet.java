@@ -1,4 +1,4 @@
-package org.example.hw4;
+package org.example.WSD2_3;
 
 import java.io.*;
 import javax.servlet.http.*;

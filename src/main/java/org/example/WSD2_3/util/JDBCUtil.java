@@ -1,4 +1,4 @@
-package org.example.hw4.util;
+package org.example.WSD2_3.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

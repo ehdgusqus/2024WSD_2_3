@@ -1,7 +1,7 @@
-package org.example.hw4.dao;
+package org.example.WSD2_3.dao;
 
-import org.example.hw4.bean.BoardVO;
-import org.example.hw4.util.JDBCUtil;
+import org.example.WSD2_3.bean.BoardVO;
+import org.example.WSD2_3.util.JDBCUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +17,7 @@ public class BoardDAO {
     String select_id = "SELECT * FROM BOARD WHERE id=?";
     String table = "SELECT * FROM BOARD";
     String search = "SELECT * FROM BOARD WHERE title LIKE ? OR content LIKE ?";
+    String updateView = "UPDATE BOARD SET view = view + 1 WHERE id = ?";
 
     // 생성한 vo를 파라미터로 입력 받은 후에 DB에 집어넣음
     public boolean insertBoard(BoardVO vo){
@@ -68,31 +69,38 @@ public class BoardDAO {
     }
 
     // 테이블의 id가 주어졌을 때, id에 해당하는 VO를 리턴
-    public BoardVO getBoard(int id){
-        try(Connection conn = JDBCUtil.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(select_id)){
-
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if(rs.next()){
-                BoardVO vo = new BoardVO();
-                vo.setId(rs.getInt("id"));
-                vo.setTitle(rs.getString("title"));
-                vo.setWriter(rs.getString("writer"));
-                vo.setScore(rs.getInt("score"));
-                vo.setContent(rs.getString("content"));
-                vo.setCreate_date(rs.getDate("create_date"));
-                vo.setFile_path(rs.getString("file_path"));
-
-                return vo;
+    public BoardVO getBoard(int id) {
+        try (Connection conn = JDBCUtil.getConnection()) {
+            // View 값 증가
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateView)) {
+                updateStmt.setInt(1, id);
+                updateStmt.executeUpdate();
             }
 
+            // 데이터 조회
+            try (PreparedStatement selectStmt = conn.prepareStatement(select_id)) {
+                selectStmt.setInt(1, id);
+                try (ResultSet rs = selectStmt.executeQuery()) {
+                    if (rs.next()) {
+                        BoardVO vo = new BoardVO();
+                        vo.setId(rs.getInt("id"));
+                        vo.setTitle(rs.getString("title"));
+                        vo.setWriter(rs.getString("writer"));
+                        vo.setScore(rs.getInt("score"));
+                        vo.setContent(rs.getString("content"));
+                        vo.setCreate_date(rs.getDate("create_date"));
+                        vo.setFile_path(rs.getString("file_path"));
+                        vo.setView(rs.getInt("view"));
+                        return vo;
+                    }
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;    // 해당 id에 값이 없으면 null return
+        return null; // 해당 id에 값이 없으면 null 반환
     }
+
 
     // 테이블 전체를 list로 제작하여 리턴
     public List<BoardVO> getBoardList(){

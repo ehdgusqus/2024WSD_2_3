@@ -1,6 +1,6 @@
 <%@ include file="inc/top.jsp" %>
-<%@ page import="org.example.hw4.bean.BoardVO" %>
-<%@ page import="org.example.hw4.dao.BoardDAO" %>
+<%@ page import="org.example.WSD2_3.bean.BoardVO" %>
+<%@ page import="org.example.WSD2_3.dao.BoardDAO" %>
 <%
   int id = Integer.parseInt(request.getParameter("id"));
   BoardDAO dao = new BoardDAO();
@@ -21,6 +21,7 @@
       <p><strong>Content:</strong></p>
       <p class="card-text"><%= board.getContent() %></p>
       <p><strong>Score:</strong> <%= board.getScore() %></p>
+      <p><strong>View:</strong> <%= board.getView() %></p>
       <p><strong>Date:</strong> <%= board.getCreate_date() != null ? board.getCreate_date() : "No date available" %></p>
       <% if (filePath != null && !filePath.isEmpty()) { %>
       <p><strong>File:</strong></p>

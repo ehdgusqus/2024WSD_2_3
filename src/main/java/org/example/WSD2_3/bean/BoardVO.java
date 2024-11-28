@@ -1,4 +1,4 @@
-package org.example.hw4.bean;
+package org.example.WSD2_3.bean;
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ public class BoardVO {
     private String content;
     private String writer;
     private int score;
+    private int view;
     private Date create_date;
     private String file_path;
 
@@ -50,6 +51,10 @@ public class BoardVO {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public int getView() {return view;}
+
+    public void setView(int view) {this.view = view;}
 
     public Date getCreate_date() {
         return create_date;
