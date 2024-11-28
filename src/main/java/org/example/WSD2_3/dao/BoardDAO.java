@@ -38,9 +38,9 @@ public class BoardDAO {
 
     // 새로 생성한 vo와 수정할 id를 파라미터로 입력받음
     // id에 해당하는 테이블을 파라미터로 입력받은 vo로 변경
-    public boolean updateBoard(BoardVO vo, int id){
-        try(Connection conn = JDBCUtil.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(update)){
+    public boolean updateBoard(BoardVO vo, int id) {
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(update)) {
 
             pstmt.setString(1, vo.getTitle());
             pstmt.setString(2, vo.getWriter());
@@ -49,11 +49,15 @@ public class BoardDAO {
             pstmt.setString(5, vo.getFile_path());
             pstmt.setInt(6, id);
 
-            return pstmt.executeUpdate() > 0;
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
+
 
     // 테이블의 id가 주어졌을 때, 해당 id를 삭제
     public boolean deleteBoard(int id){
