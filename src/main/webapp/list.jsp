@@ -30,7 +30,7 @@
                         <td>${board.writer}</td>
                         <td>${board.score}</td>
                         <td>
-                            <a href="edit.jsp?id=${board.id}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="edit.jsp?id=${board.id}" class="btn btn-success btn-sm">Edit</a>
                             <a href="delete_ok.jsp?id=${board.id}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
